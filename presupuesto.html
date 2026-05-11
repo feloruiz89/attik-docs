@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presupuesto — ATTIK</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+
+    /* === RESET === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* === TOKENS === */
+    :root {
+      --cream:        #EAE8C9;
+      --cream-dark:   #D8D6B5;
+      --cream-light:  #F5F4E8;
+      --white:        #FAFAF5;
+      --ink:          #1A1917;
+      --ink-mid:      #4A4845;
+      --ink-soft:     #767470;
+      --accent:       #66FF00;
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    /* === BASE === */
+    html { font-size: 15px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* === PRINT === */
+    @media print {
+      body { background: white; }
+      .no-print { display: none; }
+      .page { box-shadow: none; margin: 0; border-radius: 0; }
+    }
+
+    /* === LAYOUT === */
+    .wrapper {
+      max-width: 860px;
+      margin: 48px auto;
+      padding: 0 24px 80px;
+    }
+
+    .page {
+      background: var(--white);
+      box-shadow: 0 2px 40px rgba(26,25,23,0.08);
+    }
+
+    /* === HEADER === */
+    .doc-header {
+      background: var(--ink);
+      color: var(--white);
+      padding: 48px 56px 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 32px;
+    }
+
+    .doc-header__left {}
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .doc-header__tagline {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(250,250,245,0.45);
+    }
+
+    .doc-header__right {
+      text-align: right;
+    }
+
+    .doc-type {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .doc-number {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .doc-date {
+      font-size: 12px;
+      color: rgba(250,250,245,0.45);
+      margin-top: 6px;
+    }
+
+    /* === META SECTION (cliente + proyecto) === */
+    .doc-meta {
+      padding: 40px 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .meta-block {
+      padding-right: 40px;
+    }
+
+    .meta-block + .meta-block {
+      padding-left: 40px;
+      padding-right: 0;
+      border-left: 1px solid var(--cream-dark);
+    }
+
+    .meta-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 10px;
+    }
+
+    .meta-name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .meta-detail {
+      font-size: 13px;
+      color: var(--ink-mid);
+      line-height: 1.6;
+    }
+
+    /* === PROYECTO DESCRIPTION === */
+    .doc-scope {
+      padding: 36px 56px;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .scope-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+    }
+
+    .scope-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+
+    .scope-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink-mid);
+      max-width: 580px;
+    }
+
+    /* === TABLA DE SERVICIOS === */
+    .doc-items {
+      padding: 0 56px 8px;
+    }
+
+    .items-header {
+      padding: 28px 0 16px;
+      border-bottom: 1px solid var(--ink);
+      display: grid;
+      grid-template-columns: 1fr 80px 110px 110px;
+      gap: 16px;
+    }
+
+    .items-header span {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .items-header span:not(:first-child) {
+      text-align: right;
+    }
+
+    .item-row {
+      display: grid;
+      grid-template-columns: 1fr 80px 110px 110px;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--cream-dark);
+      align-items: start;
+    }
+
+    .item-row:last-child {
+      border-bottom: none;
+    }
+
+    .item-name {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .item-desc {
+      font-size: 12px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    .item-qty,
+    .item-unit,
+    .item-total {
+      font-size: 14px;
+      color: var(--ink);
+      text-align: right;
+      padding-top: 2px;
+    }
+
+    .item-total {
+      font-weight: 500;
+    }
+
+    /* === TOTALES === */
+    .doc-totals {
+      padding: 0 56px 40px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .totals-block {
+      width: 320px;
+    }
+
+    .totals-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--cream-dark);
+      font-size: 14px;
+      color: var(--ink-mid);
+    }
+
+    .totals-row.is-subtotal {
+      color: var(--ink);
+    }
+
+    .totals-row.is-total {
+      border-bottom: none;
+      border-top: 2px solid var(--ink);
+      margin-top: 4px;
+      padding-top: 14px;
+    }
+
+    .totals-row.is-total .total-label {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .totals-row.is-total .total-amount {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .totals-row.is-note {
+      border-bottom: none;
+      font-size: 11px;
+      color: var(--ink-soft);
+      padding-top: 8px;
+    }
+
+    /* === CONDICIONES === */
+    .doc-terms {
+      background: var(--cream);
+      padding: 32px 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+
+    .term-block {}
+
+    .term-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 8px;
+    }
+
+    .term-value {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .term-note {
+      font-size: 11px;
+      color: var(--ink-soft);
+      margin-top: 3px;
+      line-height: 1.5;
+    }
+
+    /* === FOOTER === */
+    .doc-footer {
+      background: var(--ink);
+      padding: 28px 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+
+    .footer-brand span { color: var(--accent); }
+
+    .footer-contact {
+      font-size: 12px;
+      color: rgba(250,250,245,0.45);
+      text-align: right;
+      line-height: 1.7;
+    }
+
+    .footer-contact a {
+      color: rgba(250,250,245,0.45);
+      text-decoration: none;
+    }
+
+    /* === UTILITY === */
+    .accent-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    /* === PRINT BTN === */
+    .print-bar {
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    .btn-print {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: var(--white);
+      border: none;
+      padding: 14px 32px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-print:hover { background: #333; }
+
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- PRINT BUTTON -->
+  <div class="print-bar no-print">
+    <button class="btn-print" onclick="window.print()">Exportar PDF</button>
+  </div>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="doc-header">
+      <div class="doc-header__left">
+        <div class="logo">ATTIK<span>.</span></div>
+        <div class="doc-header__tagline">Engineering the Unforgettable</div>
+      </div>
+      <div class="doc-header__right">
+        <div class="doc-type">Presupuesto</div>
+        <div class="doc-number">#0042</div>
+        <div class="doc-date">Emitido: 11 mayo 2026 · Válido: 30 días</div>
+      </div>
+    </header>
+
+    <!-- META: CLIENTE + PROYECTO -->
+    <section class="doc-meta">
+      <div class="meta-block">
+        <div class="meta-label">Cliente</div>
+        <div class="meta-name">Nombre del Cliente S.A.</div>
+        <div class="meta-detail">
+          Juan Pérez — CEO<br>
+          juan@empresa.com<br>
+          +54 11 0000-0000
+        </div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">Proyecto</div>
+        <div class="meta-name">Identidad Visual + Web</div>
+        <div class="meta-detail">
+          Inicio estimado: 20 mayo 2026<br>
+          Duración: 6 semanas<br>
+          Entregable principal: Sistema de marca completo
+        </div>
+      </div>
+    </section>
+
+    <!-- SCOPE -->
+    <section class="doc-scope">
+      <div class="scope-label">Descripción del Proyecto</div>
+      <div class="scope-title">Desarrollo de Identidad Visual<br>y Presencia Digital</div>
+      <div class="scope-desc">
+        Construcción de un sistema de marca desde cero: naming, logotipo, paleta cromática, tipografía y aplicaciones. Incluye desarrollo de sitio web en Shopify con foco en conversión y narrativa de marca. Entregables en formatos editables AI, PDF y ZIP con guía de uso.
+      </div>
+    </section>
+
+    <!-- ITEMS TABLE -->
+    <section class="doc-items">
+      <div class="items-header">
+        <span>Servicio</span>
+        <span>Unid.</span>
+        <span>Precio unitario</span>
+        <span>Total</span>
+      </div>
+
+      <div class="item-row">
+        <div>
+          <div class="item-name">Estrategia de Marca</div>
+          <div class="item-desc">Posicionamiento, competencia, arquetipo, propuesta de valor única.</div>
+        </div>
+        <div class="item-qty">1</div>
+        <div class="item-unit">$1.500</div>
+        <div class="item-total">$1.500</div>
+      </div>
+
+      <div class="item-row">
+        <div>
+          <div class="item-name">Diseño de Logotipo + Sistema Visual</div>
+          <div class="item-desc">3 conceptos, 2 rondas de revisión. Brandbook básico con usos y aplicaciones.</div>
+        </div>
+        <div class="item-qty">1</div>
+        <div class="item-unit">$2.800</div>
+        <div class="item-total">$2.800</div>
+      </div>
+
+      <div class="item-row">
+        <div>
+          <div class="item-name">Desarrollo Web — Shopify</div>
+          <div class="item-desc">Theme customizado, hasta 5 páginas, integración de apps esenciales, configuración de checkout.</div>
+        </div>
+        <div class="item-qty">1</div>
+        <div class="item-unit">$3.500</div>
+        <div class="item-total">$3.500</div>
+      </div>
+
+      <div class="item-row">
+        <div>
+          <div class="item-name">Copywriting — Home + About</div>
+          <div class="item-desc">Textos hook-first para homepage y página "Nosotros". Revisión SEO básica.</div>
+        </div>
+        <div class="item-qty">1</div>
+        <div class="item-unit">$900</div>
+        <div class="item-total">$900</div>
+      </div>
+
+    </section>
+
+    <!-- TOTALES -->
+    <div class="doc-totals">
+      <div class="totals-block">
+        <div class="totals-row">
+          <span>Subtotal</span>
+          <span>$8.700</span>
+        </div>
+        <div class="totals-row">
+          <span>Descuento (—)</span>
+          <span>$0</span>
+        </div>
+        <div class="totals-row is-total">
+          <span class="total-label">Total USD</span>
+          <span class="total-amount">$8.700</span>
+        </div>
+        <div class="totals-row is-note">
+          Precios en dólares estadounidenses. No incluye impuestos locales.
+        </div>
+      </div>
+    </div>
+
+    <!-- CONDICIONES -->
+    <section class="doc-terms">
+      <div class="term-block">
+        <div class="term-label">Forma de pago</div>
+        <div class="term-value">50% / 50%</div>
+        <div class="term-note">50% al inicio del proyecto. 50% contra entrega final.</div>
+      </div>
+      <div class="term-block">
+        <div class="term-label">Validez</div>
+        <div class="term-value">30 días</div>
+        <div class="term-note">Vence el 10 de junio 2026. Sujeto a disponibilidad.</div>
+      </div>
+      <div class="term-block">
+        <div class="term-label">Revisiones incluidas</div>
+        <div class="term-value">2 rondas</div>
+        <div class="term-note">Revisiones adicionales se facturan por separado a $120/hr.</div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="doc-footer">
+      <div class="footer-brand">ATTIK<span>.</span></div>
+      <div class="footer-contact">
+        attik.cc · hola@attik.cc<br>
+        Buenos Aires, Argentina
+      </div>
+    </footer>
+
+  </div>
+  <!-- /.page -->
+
+</div>
+<!-- /.wrapper -->
+
+</body>
+</html>

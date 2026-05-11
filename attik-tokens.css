@@ -1,0 +1,66 @@
+/* =========================================
+   ATTIK — Design System Tokens
+   v1.0 · 2026
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
+:root {
+
+  /* --- COLOR --- */
+  --color-cream:       #EAE8C9;  /* Background principal */
+  --color-cream-dark:  #D8D6B5;  /* Borders, separadores */
+  --color-cream-light: #F5F4E8;  /* Fondo alterno suave */
+  --color-white:       #FAFAF5;  /* Panels sobre cream */
+  --color-ink:         #1A1917;  /* Texto principal */
+  --color-ink-mid:     #4A4845;  /* Texto secundario */
+  --color-ink-soft:    #767470;  /* Labels, captions */
+  --color-accent:      #66FF00;  /* Verde neon Attik — usar con moderación */
+  --color-accent-dark: #191715;  /* Negro profundo para fondos de contraste */
+
+  /* --- TIPOGRAFÍA --- */
+  --font-display:  'Syne', sans-serif;
+  --font-body:     'DM Sans', sans-serif;
+
+  /* --- ESCALA TIPOGRÁFICA --- */
+  --text-xs:   11px;
+  --text-sm:   13px;
+  --text-base: 15px;
+  --text-md:   18px;
+  --text-lg:   24px;
+  --text-xl:   36px;
+  --text-2xl:  52px;
+  --text-3xl:  80px;
+
+  /* --- TRACKING --- */
+  --tracking-tight:  -0.04em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.08em;
+  --tracking-caps:    0.12em;
+
+  /* --- ESPACIADO --- */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   24px;
+  --space-6:   32px;
+  --space-7:   48px;
+  --space-8:   64px;
+  --space-9:   96px;
+  --space-10: 128px;
+
+  /* --- BORDES --- */
+  --border-thin:   1px solid var(--color-cream-dark);
+  --border-ink:    1px solid var(--color-ink);
+  --radius:        0px; /* Sin border-radius — editorial flat */
+
+  /* --- SOMBRAS --- */
+  --shadow-none: none;
+
+  /* --- LÍNEA --- */
+  --leading-tight:  1.0;
+  --leading-snug:   1.2;
+  --leading-normal: 1.5;
+  --leading-loose:  1.7;
+}
