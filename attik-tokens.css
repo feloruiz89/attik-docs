@@ -1,9 +1,39 @@
 /* =========================================
    ATTIK — Design System Tokens
-   v1.0 · 2026
+   v1.1 · 2026
    ========================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+/* --- FUENTES LOCALES ---
+   Archivos en /fonts/
+   PP Neue Machina: display, headings (libre uso personal)
+   Helvetica Neue LT Std 93 Black Extended: body, labels (licenciada)
+*/
+@font-face {
+  font-family: 'PP Neue Machina';
+  src: url('./fonts/PPNeueMachina-PlainUltrabold.woff2') format('woff2'),
+       url('./fonts/PPNeueMachina-PlainUltrabold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Machina';
+  src: url('./fonts/PPNeueMachina-PlainRegular.woff2') format('woff2'),
+       url('./fonts/PPNeueMachina-PlainRegular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue LT';
+  src: url('./fonts/HelveticaNeueLTStd-93BlkEx.woff2') format('woff2'),
+       url('./fonts/HelveticaNeueLTStd-93BlkEx.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
 
@@ -19,8 +49,8 @@
   --color-accent-dark: #191715;  /* Negro profundo para fondos de contraste */
 
   /* --- TIPOGRAFÍA --- */
-  --font-display:  'Syne', sans-serif;
-  --font-body:     'DM Sans', sans-serif;
+  --font-display:  'PP Neue Machina', 'Helvetica Neue', sans-serif;
+  --font-body:     'Helvetica Neue LT', 'Helvetica Neue', Arial, sans-serif;
 
   /* --- ESCALA TIPOGRÁFICA --- */
   --text-xs:   11px;

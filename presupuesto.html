@@ -4,9 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Presupuesto — ATTIK</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('./fonts/PPNeueMachina-PlainUltrabold.woff2') format('woff2'),
+           url('./fonts/PPNeueMachina-PlainUltrabold.otf') format('opentype');
+      font-weight: 800;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('./fonts/PPNeueMachina-PlainRegular.woff2') format('woff2'),
+           url('./fonts/PPNeueMachina-PlainRegular.otf') format('opentype');
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Helvetica Neue LT';
+      src: url('./fonts/HelveticaNeueLTStd-93BlkEx.woff2') format('woff2'),
+           url('./fonts/HelveticaNeueLTStd-93BlkEx.otf') format('opentype');
+      font-weight: 900;
+      font-display: swap;
+    }
+  </style>
   <style>
 
     /* === RESET === */
@@ -22,8 +42,8 @@
       --ink-mid:      #4A4845;
       --ink-soft:     #767470;
       --accent:       #66FF00;
-      --font-display: 'Syne', sans-serif;
-      --font-body:    'DM Sans', sans-serif;
+      --font-display: 'PP Neue Machina', 'Helvetica Neue', sans-serif;
+      --font-body:    'Helvetica Neue LT', 'Helvetica Neue', Arial, sans-serif;
     }
 
     /* === BASE === */
