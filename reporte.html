@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporte Mayo 2026 — Cliente · ATTIK</title>
+  <style>
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('./fonts/PPNeueMachina-PlainUltrabold.woff2') format('woff2'),
+           url('./fonts/PPNeueMachina-PlainUltrabold.otf') format('opentype');
+      font-weight: 800; font-display: swap;
+    }
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('./fonts/PPNeueMachina-PlainRegular.woff2') format('woff2'),
+           url('./fonts/PPNeueMachina-PlainRegular.otf') format('opentype');
+      font-weight: 400; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Helvetica Neue LT';
+      src: url('./fonts/HelveticaNeueLTStd-93BlkEx.woff2') format('woff2'),
+           url('./fonts/HelveticaNeueLTStd-93BlkEx.otf') format('opentype');
+      font-weight: 900; font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:      #EAE8C9;
+      --cream-dark: #D8D6B5;
+      --white:      #FAFAF5;
+      --ink:        #1A1917;
+      --ink-mid:    #4A4845;
+      --ink-soft:   #767470;
+      --accent:     #66FF00;
+      --font-d: 'PP Neue Machina', 'Helvetica Neue', sans-serif;
+      --font-b: 'Helvetica Neue LT', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    @media print {
+      body { background: white; }
+      .no-print { display: none; }
+      .page { box-shadow: none; margin: 0; }
+      .section-break { page-break-before: always; }
+    }
+
+    html { font-size: 14px; }
+    body { font-family: var(--font-b); background: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+    .wrapper { max-width: 900px; margin: 48px auto; padding: 0 24px 80px; }
+    .page { background: var(--white); box-shadow: 0 2px 40px rgba(26,25,23,0.08); }
+
+    /* HEADER */
+    .doc-header { background: var(--ink); padding: 48px 56px 44px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .logo { font-family: var(--font-d); font-size: 28px; font-weight: 800; letter-spacing: -0.04em; color: var(--white); line-height: 1; margin-bottom: 4px; }
+    .logo span { color: var(--accent); }
+    .tagline { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(250,250,245,0.4); }
+    .doc-header__right { text-align: right; }
+    .doc-type { font-family: var(--font-d); font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .doc-period { font-family: var(--font-d); font-size: 36px; font-weight: 800; letter-spacing: -0.03em; color: var(--white); line-height: 1; }
+    .doc-client { font-size: 13px; color: rgba(250,250,245,0.5); margin-top: 6px; }
+
+    /* RESUMEN EJECUTIVO */
+    .exec-summary { background: var(--ink); padding: 0 56px 48px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .exec-label { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    .exec-text { font-family: var(--font-d); font-size: 18px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.4; color: var(--white); max-width: 680px; }
+
+    /* SECCIONES */
+    .section { padding: 40px 56px; border-bottom: 1px solid var(--cream-dark); }
+    .section:last-of-type { border-bottom: none; }
+
+    .section-label { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .section-title { font-family: var(--font-d); font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 24px; line-height: 1.1; }
+
+    /* MÉTRICAS GRID */
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--cream-dark); border: 1px solid var(--cream-dark); margin-bottom: 28px; }
+    .metric-card { background: var(--white); padding: 20px 16px; }
+    .metric-label { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+    .metric-value { font-family: var(--font-d); font-size: 28px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); line-height: 1; }
+    .metric-delta { font-size: 11px; color: var(--ink-soft); margin-top: 4px; }
+    .metric-delta.up { color: #3a9e2b; }
+    .metric-delta.down { color: #c0392b; }
+
+    /* TOP POSTS */
+    .top-posts { margin-top: 24px; }
+    .top-posts-label { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 14px; }
+    .post-row { display: grid; grid-template-columns: 1fr 90px 90px 90px; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--cream-dark); align-items: center; font-size: 13px; }
+    .post-row:last-child { border-bottom: none; }
+    .post-row.header { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); padding-bottom: 8px; }
+    .post-row.header span:not(:first-child) { text-align: right; }
+    .post-name { font-weight: 500; color: var(--ink); }
+    .post-desc { font-size: 11px; color: var(--ink-soft); margin-top: 2px; }
+    .post-num { text-align: right; font-family: var(--font-d); font-size: 13px; font-weight: 800; color: var(--ink); }
+
+    /* LECTURA */
+    .reading { background: var(--cream); padding: 20px 24px; margin-top: 20px; }
+    .reading-label { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+    .reading-text { font-size: 13px; color: var(--ink-mid); line-height: 1.65; }
+
+    /* HIGHLIGHTS */
+    .highlight-list { list-style: none; }
+    .highlight-list li { padding: 14px 0; border-bottom: 1px solid var(--cream-dark); display: flex; gap: 16px; align-items: baseline; font-size: 14px; color: var(--ink); line-height: 1.5; }
+    .highlight-list li:last-child { border-bottom: none; }
+    .highlight-list li::before { content: ''; display: block; width: 6px; height: 6px; min-width: 6px; background: var(--accent); border-radius: 50%; margin-top: 6px; }
+
+    /* APRENDIZAJES */
+    .learning-list { list-style: none; }
+    .learning-list li { padding: 14px 0; border-bottom: 1px solid var(--cream-dark); display: flex; gap: 16px; align-items: baseline; font-size: 14px; color: var(--ink-mid); line-height: 1.5; }
+    .learning-list li:last-child { border-bottom: none; }
+    .learning-list li::before { content: ''; display: block; width: 6px; height: 6px; min-width: 6px; background: var(--cream-dark); border: 1px solid var(--ink-soft); border-radius: 50%; margin-top: 6px; }
+
+    /* FOCO MES SIGUIENTE */
+    .next-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+    .next-card { }
+    .next-card-label { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+    .next-card-title { font-family: var(--font-d); font-size: 15px; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 4px; }
+    .next-card-desc { font-size: 12px; color: var(--ink-soft); line-height: 1.6; }
+
+    /* FOOTER */
+    .doc-footer { background: var(--ink); padding: 28px 56px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-brand { font-family: var(--font-d); font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: var(--white); }
+    .footer-brand span { color: var(--accent); }
+    .footer-contact { font-size: 12px; color: rgba(250,250,245,0.4); text-align: right; line-height: 1.7; }
+
+    /* PRINT BTN */
+    .print-bar { text-align: center; padding: 24px 0; }
+    .btn-print { font-family: var(--font-d); font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; background: var(--ink); color: var(--white); border: none; padding: 14px 32px; cursor: pointer; }
+    .btn-print:hover { background: #333; }
+
+    /* PLATAFORMA TAG */
+    .platform-tag { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; background: var(--cream); color: var(--ink-soft); margin-bottom: 20px; }
+
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="print-bar no-print">
+    <button class="btn-print" onclick="window.print()">Exportar PDF</button>
+  </div>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="doc-header">
+      <div>
+        <div class="logo">ATTIK<span>.</span></div>
+        <div class="tagline">Engineering the Unforgettable</div>
+      </div>
+      <div class="doc-header__right">
+        <div class="doc-type">Reporte de Performance</div>
+        <div class="doc-period">Mayo 2026</div>
+        <div class="doc-client">Cliente S.A. &nbsp;·&nbsp; Generado: 1 junio 2026</div>
+      </div>
+    </header>
+
+    <!-- RESUMEN EJECUTIVO -->
+    <div class="exec-summary">
+      <div class="exec-label">Resumen Ejecutivo</div>
+      <div class="exec-text">
+        Mayo fue el mes de mayor alcance orgánico desde el inicio de la gestión. Las consultas desde Instagram crecieron 40% y LinkedIn generó dos contactos comerciales directos. La inversión en pauta se optimizó bajando el CPM un 18%.
+      </div>
+    </div>
+
+    <!-- LINKEDIN -->
+    <section class="section">
+      <div class="section-label">Redes Sociales</div>
+      <div class="section-title">LinkedIn</div>
+      <div class="platform-tag">LinkedIn</div>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Alcance</div>
+          <div class="metric-value">18.400</div>
+          <div class="metric-delta up">+23% vs abril</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Impresiones</div>
+          <div class="metric-value">42.100</div>
+          <div class="metric-delta up">+17% vs abril</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Nuevos seguidores</div>
+          <div class="metric-value">+84</div>
+          <div class="metric-delta up">+31% vs abril</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Eng. Rate</div>
+          <div class="metric-value">4.2%</div>
+          <div class="metric-delta">Promedio industria: 2.1%</div>
+        </div>
+      </div>
+
+      <div class="top-posts">
+        <div class="top-posts-label">Top 3 Posteos del Mes</div>
+        <div class="post-row header">
+          <span>Posteo</span>
+          <span>Alcance</span>
+          <span>Reacciones</span>
+          <span>Comentarios</span>
+        </div>
+        <div class="post-row">
+          <div>
+            <div class="post-name">La marca desactualizada no cierra contratos</div>
+            <div class="post-desc">Publicado 8 mayo</div>
+          </div>
+          <div class="post-num">6.200</div>
+          <div class="post-num">148</div>
+          <div class="post-num">23</div>
+        </div>
+        <div class="post-row">
+          <div>
+            <div class="post-name">Caso: De Marchi — antes y después</div>
+            <div class="post-desc">Publicado 15 mayo</div>
+          </div>
+          <div class="post-num">4.800</div>
+          <div class="post-num">112</div>
+          <div class="post-num">18</div>
+        </div>
+        <div class="post-row">
+          <div>
+            <div class="post-name">3 señales de que tu web te está costando ventas</div>
+            <div class="post-desc">Publicado 22 mayo</div>
+          </div>
+          <div class="post-num">3.900</div>
+          <div class="post-num">87</div>
+          <div class="post-num">11</div>
+        </div>
+      </div>
+
+      <div class="reading">
+        <div class="reading-label">Lectura</div>
+        <div class="reading-text">El contenido de casos reales y diagnósticos directos superó consistentemente al contenido educativo genérico. Los posteos con hook de problema concreto tuvieron 2.3x más engagement que los informativos. Mayo confirma que el tono más directo y menos corporativo funciona para esta audiencia.</div>
+      </div>
+    </section>
+
+    <!-- INSTAGRAM -->
+    <section class="section">
+      <div class="platform-tag">Instagram</div>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Alcance</div>
+          <div class="metric-value">24.700</div>
+          <div class="metric-delta up">+18% vs abril</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Impresiones</div>
+          <div class="metric-value">61.300</div>
+          <div class="metric-delta up">+14% vs abril</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Nuevos seguidores</div>
+          <div class="metric-value">+210</div>
+          <div class="metric-delta up">+44% vs abril</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Visitas al perfil</div>
+          <div class="metric-value">1.840</div>
+          <div class="metric-delta up">+29% vs abril</div>
+        </div>
+      </div>
+
+      <div class="reading">
+        <div class="reading-label">Lectura</div>
+        <div class="reading-text">Los Reels de proceso (behind the scenes del trabajo) generaron 3x más alcance que los posts estáticos. El crecimiento de seguidores fue el mayor del año. Las visitas al perfil sugieren intención: gente que quiere saber más antes de contactar.</div>
+      </div>
+    </section>
+
+    <!-- PUBLICIDAD -->
+    <section class="section section-break">
+      <div class="section-label">Publicidad Digital</div>
+      <div class="section-title">Performance de Campañas</div>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Inversión total</div>
+          <div class="metric-value">$180k</div>
+          <div class="metric-delta">ARS · Mayo 2026</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Alcance pagado</div>
+          <div class="metric-value">38.200</div>
+          <div class="metric-delta up">+22% vs abril</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">CTR promedio</div>
+          <div class="metric-value">3.1%</div>
+          <div class="metric-delta up">+0.8pp vs abril</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">CPM</div>
+          <div class="metric-value">$4.700</div>
+          <div class="metric-delta up">-18% vs abril</div>
+        </div>
+      </div>
+
+      <div class="reading">
+        <div class="reading-label">Lectura</div>
+        <div class="reading-text">La optimización de audiencias realizada en la segunda semana redujo el CPM significativamente sin afectar el volumen. La campaña de reconocimiento de marca superó el benchmark del rubro en CTR. Para junio se recomienda escalar el presupuesto un 20% en el conjunto de anuncios de mayor performance.</div>
+      </div>
+    </section>
+
+    <!-- HIGHLIGHTS -->
+    <section class="section">
+      <div class="section-label">Highlights del Mes</div>
+      <div class="section-title">Lo que funcionó</div>
+      <ul class="highlight-list">
+        <li>Mayor alcance orgánico total desde el inicio de la gestión — +21% sobre el mejor mes anterior.</li>
+        <li>LinkedIn generó 2 contactos comerciales directos a través de DM, uno ya en conversación de propuesta.</li>
+        <li>La optimización de pauta bajó el CPM un 18% manteniendo volumen — mejor eficiencia de inversión del año.</li>
+      </ul>
+    </section>
+
+    <!-- APRENDIZAJES -->
+    <section class="section">
+      <div class="section-label">Aprendizajes y Ajustes</div>
+      <div class="section-title">Lo que corregimos</div>
+      <ul class="learning-list">
+        <li>Los posts del fin de semana en LinkedIn tuvieron 40% menos alcance. A partir de junio, la publicación se concentra de lunes a jueves.</li>
+        <li>La campaña de conversión no alcanzó el volumen de leads esperado. Cambiamos el objetivo a tráfico primero para nutrir el píxel antes de relanzarla.</li>
+      </ul>
+    </section>
+
+    <!-- FOCO MES SIGUIENTE -->
+    <section class="section">
+      <div class="section-label">Junio 2026</div>
+      <div class="section-title">Foco del Próximo Mes</div>
+      <div class="next-grid">
+        <div class="next-card">
+          <div class="next-card-label">Prioridad 1</div>
+          <div class="next-card-title">Escalar pauta de performance</div>
+          <div class="next-card-desc">Aumentar inversión 20% en el conjunto de mayor CTR. Objetivo: 8 leads calificados.</div>
+        </div>
+        <div class="next-card">
+          <div class="next-card-label">Prioridad 2</div>
+          <div class="next-card-title">Reels de caso de cliente</div>
+          <div class="next-card-desc">Producir 2 Reels de proceso con resultado medible. El formato de mayor alcance del mes.</div>
+        </div>
+        <div class="next-card">
+          <div class="next-card-label">Prioridad 3</div>
+          <div class="next-card-title">LinkedIn — publicación concentrada</div>
+          <div class="next-card-desc">Publicar solo lunes a jueves. Testear hooks de pregunta vs. afirmación directa.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="doc-footer">
+      <div class="footer-brand">ATTIK<span>.</span></div>
+      <div class="footer-contact">attik.cc &nbsp;·&nbsp; hola@attik.cc<br>Buenos Aires, Argentina</div>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>

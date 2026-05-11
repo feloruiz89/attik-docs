@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propuesta #0040 — De Marchi · ATTIK</title>
+  <style>
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('./fonts/PPNeueMachina-PlainUltrabold.woff2') format('woff2'),
+           url('./fonts/PPNeueMachina-PlainUltrabold.otf') format('opentype');
+      font-weight: 800;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('./fonts/PPNeueMachina-PlainRegular.woff2') format('woff2'),
+           url('./fonts/PPNeueMachina-PlainRegular.otf') format('opentype');
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Helvetica Neue LT';
+      src: url('./fonts/HelveticaNeueLTStd-93BlkEx.woff2') format('woff2'),
+           url('./fonts/HelveticaNeueLTStd-93BlkEx.otf') format('opentype');
+      font-weight: 900;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:       #EAE8C9;
+      --cream-dark:  #D8D6B5;
+      --white:       #FAFAF5;
+      --ink:         #1A1917;
+      --ink-mid:     #4A4845;
+      --ink-soft:    #767470;
+      --accent:      #66FF00;
+      --font-display: 'PP Neue Machina', 'Helvetica Neue', sans-serif;
+      --font-body:    'Helvetica Neue LT', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    @media print {
+      body { background: white; }
+      .no-print { display: none; }
+      .page { box-shadow: none; margin: 0; }
+      .etapa-2 { page-break-before: always; }
+    }
+
+    html { font-size: 15px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrapper {
+      max-width: 860px;
+      margin: 48px auto;
+      padding: 0 24px 80px;
+    }
+
+    .page {
+      background: var(--white);
+      box-shadow: 0 2px 40px rgba(26,25,23,0.08);
+    }
+
+    /* HEADER */
+    .doc-header {
+      background: var(--ink);
+      padding: 48px 56px 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .logo span { color: var(--accent); }
+
+    .doc-header__tagline {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(250,250,245,0.4);
+    }
+
+    .doc-header__right { text-align: right; }
+
+    .doc-type {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .doc-number {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .doc-date {
+      font-size: 12px;
+      color: rgba(250,250,245,0.4);
+      margin-top: 6px;
+    }
+
+    /* META */
+    .doc-meta {
+      padding: 40px 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .meta-block { padding-right: 40px; }
+    .meta-block + .meta-block {
+      padding-left: 40px;
+      padding-right: 0;
+      border-left: 1px solid var(--cream-dark);
+    }
+
+    .meta-label {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 10px;
+    }
+
+    .meta-name {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .meta-detail {
+      font-size: 13px;
+      color: var(--ink-mid);
+      line-height: 1.6;
+    }
+    .meta-detail em {
+      font-style: normal;
+      color: var(--ink-soft);
+    }
+
+    /* ARGUMENTO ESTRATÉGICO */
+    .doc-rationale {
+      padding: 48px 56px;
+      border-bottom: 1px solid var(--cream-dark);
+      background: var(--ink);
+    }
+
+    .rationale-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .rationale-body {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.35;
+      color: var(--white);
+      max-width: 680px;
+    }
+
+    .rationale-body strong {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    /* ETAPA HEADER */
+    .etapa-header {
+      padding: 40px 56px 0;
+    }
+
+    .etapa-numero {
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .etapa-titulo {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1.05;
+    }
+
+    .etapa-desc {
+      padding: 12px 56px 0;
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      max-width: 600px;
+    }
+
+    /* TABLA */
+    .doc-items { padding: 0 56px; margin-top: 24px; }
+
+    .items-header {
+      padding: 0 0 14px;
+      border-bottom: 1.5px solid var(--ink);
+      display: grid;
+      grid-template-columns: 1fr 160px 130px;
+      gap: 16px;
+    }
+
+    .items-header span {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .items-header span:not(:first-child) { text-align: right; }
+
+    .item-row {
+      display: grid;
+      grid-template-columns: 1fr 160px 130px;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--cream-dark);
+      align-items: start;
+    }
+    .item-row:last-child { border-bottom: none; }
+
+    .item-name {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .item-desc {
+      font-size: 12px;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    .item-type {
+      font-size: 12px;
+      color: var(--ink-soft);
+      text-align: right;
+      padding-top: 2px;
+    }
+
+    .item-total {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--ink);
+      text-align: right;
+      padding-top: 2px;
+    }
+
+    .item-total.is-tbd {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    /* TOTAL DE ETAPA */
+    .etapa-total {
+      padding: 0 56px 40px;
+      display: flex;
+      justify-content: flex-end;
+      border-top: 1px solid var(--cream-dark);
+      margin-top: 0;
+    }
+
+    .etapa-total__block { width: 340px; }
+
+    .etapa-total__row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--cream-dark);
+      font-size: 13px;
+      color: var(--ink-mid);
+    }
+    .etapa-total__row:last-of-type { border-bottom: none; }
+
+    .etapa-total__row.is-main {
+      border-top: 2px solid var(--ink);
+      border-bottom: none;
+      margin-top: 4px;
+      padding-top: 16px;
+    }
+
+    .etapa-total__row.is-main .label {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .etapa-total__row.is-main .amount {
+      font-family: var(--font-display);
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .etapa-total__note {
+      font-size: 11px;
+      color: var(--ink-soft);
+      text-align: right;
+      padding-top: 10px;
+      line-height: 1.6;
+    }
+
+    /* DIVISOR ENTRE ETAPAS */
+    .etapa-divider {
+      background: var(--cream);
+      height: 3px;
+      border-top: 1px solid var(--cream-dark);
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    /* CONDICIONES */
+    .doc-terms {
+      background: var(--cream);
+      padding: 32px 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      border-top: 1px solid var(--cream-dark);
+    }
+
+    .term-label {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 8px;
+    }
+
+    .term-value {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .term-note {
+      font-size: 11px;
+      color: var(--ink-soft);
+      margin-top: 4px;
+      line-height: 1.55;
+    }
+
+    /* FOOTER */
+    .doc-footer {
+      background: var(--ink);
+      padding: 28px 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+    .footer-brand span { color: var(--accent); }
+
+    .footer-contact {
+      font-size: 12px;
+      color: rgba(250,250,245,0.4);
+      text-align: right;
+      line-height: 1.7;
+    }
+
+    /* PRINT BTN */
+    .print-bar { text-align: center; padding: 24px 0; }
+    .btn-print {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: var(--white);
+      border: none;
+      padding: 14px 32px;
+      cursor: pointer;
+    }
+    .btn-print:hover { background: #333; }
+
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <div class="print-bar no-print">
+    <button class="btn-print" onclick="window.print()">Exportar PDF</button>
+  </div>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="doc-header">
+      <div>
+        <div class="logo">ATTIK<span>.</span></div>
+        <div class="doc-header__tagline">Engineering the Unforgettable</div>
+      </div>
+      <div class="doc-header__right">
+        <div class="doc-type">Propuesta Estratégica</div>
+        <div class="doc-number">#0040</div>
+        <div class="doc-date">Emitido: 11 mayo 2026 &nbsp;·&nbsp; Válido: 30 días</div>
+      </div>
+    </header>
+
+    <!-- META -->
+    <section class="doc-meta">
+      <div class="meta-block">
+        <div class="meta-label">Cliente</div>
+        <div class="meta-name">De Marchi</div>
+        <div class="meta-detail"><em>Contacto a confirmar</em></div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">Alcance</div>
+        <div class="meta-name">Marca · Web · Contenido · Pauta</div>
+        <div class="meta-detail">
+          Etapa 1 inicio: 20 mayo 2026<br>
+          Etapa 2 inicio: al completar Etapa 1
+        </div>
+      </div>
+    </section>
+
+    <!-- ARGUMENTO ESTRATÉGICO -->
+    <section class="doc-rationale">
+      <div class="rationale-label">Por qué en este orden</div>
+      <div class="rationale-body">
+        La identidad actual de De Marchi no puede sostener lo que el negocio quiere proyectar. Rediseñar el sitio web sin actualizar la marca es construir sobre una base que va a seguir comunicando lo mismo de siempre.<br><br>
+        Si el objetivo es mostrar <strong>innovación</strong> — en producto, en proceso, en cultura — esa conversación no puede arrancar con una visual que la contradice. Una marca desactualizada no cierra contratos nuevos.<br><br>
+        Primero la identidad. Después, todo lo demás tiene sentido.
+      </div>
+    </section>
+
+    <!-- ======================== -->
+    <!-- ETAPA 1 -->
+    <!-- ======================== -->
+    <div class="etapa-header">
+      <div class="etapa-numero">Etapa 1</div>
+      <div class="etapa-titulo">Rebranding + Presencia Digital</div>
+    </div>
+
+    <div class="etapa-desc">
+      Actualización de identidad visual y desarrollo de sitio web. El punto de partida sin el cual ninguna acción de comunicación posterior va a funcionar como debería.
+    </div>
+
+    <section class="doc-items">
+      <div class="items-header" style="margin-top: 24px;">
+        <span>Servicio</span>
+        <span>Modalidad</span>
+        <span>Inversión</span>
+      </div>
+
+      <div class="item-row">
+        <div>
+          <div class="item-name">Rebranding + Página Web</div>
+          <div class="item-desc">Actualización de identidad visual — logotipo, paleta, tipografía, sistema de marca. Desarrollo de sitio web con el nuevo look and feel. Sin marca nueva, no hay web nueva.</div>
+        </div>
+        <div class="item-type">Pago único</div>
+        <div class="item-total">$1.800.000</div>
+      </div>
+
+      <div class="item-row">
+        <div>
+          <div class="item-name">Producción en Planta — Foto &amp; Video</div>
+          <div class="item-desc">Sesión fotográfica y de video en instalaciones del cliente. Contenido propio para web y comunicaciones. Alcance y entregables a definir según necesidad.</div>
+        </div>
+        <div class="item-type">A cotizar</div>
+        <div class="item-total is-tbd">A cotizar</div>
+      </div>
+
+      <div class="item-row">
+        <div>
+          <div class="item-name">Video Institucional</div>
+          <div class="item-desc">Pieza audiovisual corporativa para comunicar quiénes son y hacia dónde van. Guión, rodaje y edición. Alcance a definir.</div>
+        </div>
+        <div class="item-type">A cotizar</div>
+        <div class="item-total is-tbd">A cotizar</div>
+      </div>
+
+    </section>
+
+    <div class="etapa-total">
+      <div class="etapa-total__block">
+        <div class="etapa-total__row">
+          <span>Rebranding + Web</span>
+          <span>$1.800.000</span>
+        </div>
+        <div class="etapa-total__row">
+          <span>Producción audiovisual</span>
+          <span style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-soft)">A cotizar</span>
+        </div>
+        <div class="etapa-total__row is-main">
+          <span class="label">Inversión Etapa 1</span>
+          <span class="amount">$1.800.000</span>
+        </div>
+        <div class="etapa-total__note">+ producción audiovisual a cotizar.<br>Pago: 50% al inicio · 50% contra entrega.</div>
+      </div>
+    </div>
+
+    <!-- DIVISOR -->
+    <div class="etapa-divider"></div>
+
+    <!-- ======================== -->
+    <!-- ETAPA 2 -->
+    <!-- ======================== -->
+    <div class="etapa-2">
+
+      <div class="etapa-header" style="padding-top: 40px;">
+        <div class="etapa-numero">Etapa 2</div>
+        <div class="etapa-titulo">Gestión de Contenido &amp; Pauta</div>
+      </div>
+
+      <div class="etapa-desc">
+        Con la marca y el sitio listos, activamos la presencia digital. Fee mensual recurrente que arranca una vez completada la Etapa 1.
+      </div>
+
+      <section class="doc-items">
+        <div class="items-header" style="margin-top: 24px;">
+          <span>Servicio</span>
+          <span>Modalidad</span>
+          <span>Inversión</span>
+        </div>
+
+        <div class="item-row">
+          <div>
+            <div class="item-name">Mes de Setup</div>
+            <div class="item-desc">El primer mes no es de producción de contenido — es de preparación. Configuración de cuentas, definición de estrategia, tono y voz de marca, armado de plantillas con la nueva identidad y construcción del calendario editorial del mes siguiente. Sin este mes, no hay base sobre la cual trabajar.</div>
+          </div>
+          <div class="item-type">Mes 1 (único)</div>
+          <div class="item-total">$1.400.000</div>
+        </div>
+
+        <div class="item-row">
+          <div>
+            <div class="item-name">Community Management Mensual</div>
+            <div class="item-desc">Desde el mes 2: producción y publicación de contenido regular.<br>LinkedIn: 4 posteos / mes &nbsp;·&nbsp; Instagram: 9 posteos / mes<br>Redacción, diseño, programación y reporte mensual de performance.</div>
+          </div>
+          <div class="item-type">Mensual recurrente</div>
+          <div class="item-total">$1.400.000<span style="font-size:11px;font-weight:400">/mes</span></div>
+        </div>
+
+        <div class="item-row">
+          <div>
+            <div class="item-name">Setup de Campañas Publicitarias</div>
+            <div class="item-desc">Configuración de cuentas, segmentación de audiencias, creatividades y lanzamiento. Primer mes de pauta solamente.</div>
+          </div>
+          <div class="item-type">Mes 1 (único)</div>
+          <div class="item-total">$200.000</div>
+        </div>
+
+        <div class="item-row">
+          <div>
+            <div class="item-name">Fee de Gestión de Pauta</div>
+            <div class="item-desc">Administración, optimización y reporte de inversión publicitaria. Mes 2 en adelante. No incluye el presupuesto de pauta.</div>
+          </div>
+          <div class="item-type">Mensual recurrente</div>
+          <div class="item-total">20% <span style="font-size:11px;font-weight:400">de inversión</span></div>
+        </div>
+
+      </section>
+
+      <div class="etapa-total">
+        <div class="etapa-total__block">
+          <div class="etapa-total__row">
+            <span>Setup redes + pauta (mes 1)</span>
+            <span>$1.600.000</span>
+          </div>
+          <div class="etapa-total__row">
+            <span>Desde mes 2</span>
+            <span>$1.400.000 + 20%</span>
+          </div>
+          <div class="etapa-total__row is-main">
+            <span class="label">Fee Mensual</span>
+            <span class="amount">$1.400.000</span>
+          </div>
+          <div class="etapa-total__note">
+            Precios en pesos argentinos. No incluye inversión en pauta.<br>
+            Facturación mensual los primeros 5 días de cada mes.
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /etapa-2 -->
+
+    <!-- CONDICIONES GENERALES -->
+    <section class="doc-terms">
+      <div>
+        <div class="term-label">Forma de pago</div>
+        <div class="term-value">50% / 50%</div>
+        <div class="term-note">Etapa 1: 50% al inicio, 50% contra entrega. Etapa 2: facturación mensual.</div>
+      </div>
+      <div>
+        <div class="term-label">Validez</div>
+        <div class="term-value">30 días</div>
+        <div class="term-note">Vence el 10 de junio 2026. Sujeto a disponibilidad de agenda.</div>
+      </div>
+      <div>
+        <div class="term-label">Revisiones incluidas</div>
+        <div class="term-value">2 rondas</div>
+        <div class="term-note">Adicionales: $120 USD/hr equivalente en ARS al tipo de cambio del día.</div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="doc-footer">
+      <div class="footer-brand">ATTIK<span>.</span></div>
+      <div class="footer-contact">
+        attik.cc &nbsp;·&nbsp; hola@attik.cc<br>
+        Buenos Aires, Argentina
+      </div>
+    </footer>
+
+  </div>
+
+</div>
+
+</body>
+</html>
